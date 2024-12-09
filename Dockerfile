@@ -5,4 +5,4 @@ RUN apt-get update && apt-get install -y xdg-utils
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
-EXPOSE 5173 6006
+EXPOSE 5173 6006 9005
