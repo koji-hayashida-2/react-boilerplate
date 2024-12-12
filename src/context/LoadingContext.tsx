@@ -1,5 +1,5 @@
 // contexts/LoadingContext.tsx
-import { FC, createContext, useState, useContext, ReactNode } from "react"
+import {FC, createContext, useState, useContext, ReactNode} from "react"
 
 interface LoadingContextType {
   isLoading: boolean
@@ -9,21 +9,20 @@ interface LoadingContextType {
 
 const LoadingContext = createContext<LoadingContextType>({
   isLoading: false,
-  startLoading: () => {},
-  finishLoading: () => {}
+  startLoading: () => {
+  },
+  finishLoading: () => {
+  }
 })
 
 export const useLoading = () => useContext(LoadingContext)
 
-export const LoadingProvider: FC<{ children: ReactNode }> = ({
-   children
-  }) => {
+export const LoadingProvider: FC<{ children: ReactNode }> = ({children}) => {
   const [isLoading, setLoading] = useState(false)
 
   const startLoading = () => {
     setLoading(true)
   }
-
   const finishLoading = () => {
     setLoading(false)
   }

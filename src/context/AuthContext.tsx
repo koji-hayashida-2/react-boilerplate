@@ -5,8 +5,6 @@ import {onAuthStateChanged, User as FirebaseUser} from "firebase/auth";
 // Contextを作成
 interface AuthContextType {
   user: FirebaseUser | null; // Firebaseユーザーをそのまま使用
-  // TODO: 消す
-  loading: boolean;         // 初期認証チェック中かどうか
   logout: () => void;       // ログアウト関数
 }
 
@@ -15,12 +13,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 // Providerコンポーネント
 export const AuthProvider: FC<{ children: ReactNode }> = ({children}) => {
   const [user, setUser] = useState<FirebaseUser | null>(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
-      setLoading(false);
     });
     return () => unsubscribe();
   }, []);
@@ -31,7 +27,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({children}) => {
   };
 
   return (
-      <AuthContext.Provider value={{user, loading, logout}}>
+      <AuthContext.Provider value={{user, logout}}>
         {children}
       </AuthContext.Provider>
   );

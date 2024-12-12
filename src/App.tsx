@@ -5,6 +5,7 @@ import {AuthProvider} from "./context/AuthContext.tsx";
 import {RootPage} from "./pages/RootPage/RootPage.tsx";
 import {ProtectedRoute} from "./components/common/ui/ProtectedRoute.tsx";
 import {NotFoundPage} from "./pages/commonPages/NotFoundPage.tsx";
+import {LoadingProvider} from "./context/LoadingContext.tsx";
 
 
 export const App: FC = () => {
@@ -29,7 +30,9 @@ export const App: FC = () => {
 
   return (
       <AuthProvider>
-        <RouterProvider router={router}/>
+        <LoadingProvider>
+          <RouterProvider router={router}/>
+        </LoadingProvider>
       </AuthProvider>
   )
 }

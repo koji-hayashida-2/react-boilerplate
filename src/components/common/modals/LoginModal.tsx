@@ -26,23 +26,18 @@ interface LoginModalProps {
 const LoginModal: FC<LoginModalProps> = ({handleClose, show}) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  // TODO: contextに切り出し
-  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate()
 
   /**
    * Googleサインイン用
    */
   const signInWithGoogle = async () => {
-    setLoading(true);
     try {
       await signInWithPopup(auth, googleProvider);
       handleClose()
       navigate('/')
     } catch (e) {
       console.error('Google sign-in failed', e);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -51,15 +46,12 @@ const LoginModal: FC<LoginModalProps> = ({handleClose, show}) => {
    */
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       handleClose();
       navigate('/')
     } catch (e) {
       console.error('Email/Password sign-in failed', e);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -75,7 +67,6 @@ const LoginModal: FC<LoginModalProps> = ({handleClose, show}) => {
 
             <IconButton
                 onClick={signInWithGoogle}
-                disabled={loading}
                 style={{color: '#1266f1'}}
             >
               <GoogleIcon fontSize="large"/>
@@ -120,7 +111,6 @@ const LoginModal: FC<LoginModalProps> = ({handleClose, show}) => {
                 variant="contained"
                 color="primary"
                 fullWidth
-                disabled={loading}
             >
             </Button>
           </form>
