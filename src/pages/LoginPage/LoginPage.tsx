@@ -1,10 +1,10 @@
 import {FC, useState} from 'react';
-import LoginModal from '../../components/common/LoginModal/LoginModal.tsx';
+import LoginModal from '../../components/common/modals/LoginModal.tsx';
 import reactLogo from '../../assets/react.svg'
 import viteLogo from '/vite.svg'
 // import SignUpModal from './components/SignUpModal/S';
 import {Button, Box} from '@mui/material';
-import LoginContentsContainer from "../../components/layout/LoginContentsContainer.tsx";
+import LoginContentsContainer from "../../components/common/ui/LoginContentsContainer.tsx";
 
 export const LoginPage: FC = () => {
   const [modalFlags, setModalFlags] = useState({login: false, signUp: false});
@@ -53,13 +53,13 @@ export const LoginPage: FC = () => {
               >
                 ログイン
               </Button>
-              {/*<Button*/}
+              {/*<buttons*/}
               {/*    variant="outlined"*/}
               {/*    color="primary"*/}
               {/*    onClick={handleSignUpClick}*/}
               {/*>*/}
               {/*  ユーザー登録*/}
-              {/*</Button>*/}
+              {/*</buttons>*/}
             </Box>
           </Box>
 

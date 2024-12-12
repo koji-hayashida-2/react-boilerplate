@@ -3,7 +3,7 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import {auth, googleProvider} from "../../../firebase/firebaseAuth.ts";
+import {auth, googleProvider} from "../../../firebase/auth.ts";
 import {
   Dialog,
   DialogTitle,
@@ -16,6 +16,7 @@ import {
   Typography
 } from "@mui/material";
 import {Google as GoogleIcon} from '@mui/icons-material';
+import {useNavigate} from "react-router-dom";
 
 interface LoginModalProps {
   handleClose: () => void;
@@ -27,6 +28,7 @@ const LoginModal: FC<LoginModalProps> = ({handleClose, show}) => {
   const [password, setPassword] = useState<string>('');
   // TODO: contextに切り出し
   const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate()
 
   /**
    * Googleサインイン用
@@ -35,7 +37,8 @@ const LoginModal: FC<LoginModalProps> = ({handleClose, show}) => {
     setLoading(true);
     try {
       await signInWithPopup(auth, googleProvider);
-      handleClose();
+      handleClose()
+      navigate('/')
     } catch (e) {
       console.error('Google sign-in failed', e);
     } finally {
@@ -52,6 +55,7 @@ const LoginModal: FC<LoginModalProps> = ({handleClose, show}) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       handleClose();
+      navigate('/')
     } catch (e) {
       console.error('Email/Password sign-in failed', e);
     } finally {
@@ -118,7 +122,6 @@ const LoginModal: FC<LoginModalProps> = ({handleClose, show}) => {
                 fullWidth
                 disabled={loading}
             >
-              {loading ? 'サインイン中...' : 'サインイン'}
             </Button>
           </form>
 
